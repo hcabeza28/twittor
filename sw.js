@@ -1,7 +1,7 @@
 importScripts('js/sw-utils.js');
 
-const STATIC_CACHE = 'staticv2';
-const DYNAMIC_CACHE = 'dynamicv1';
+const STATIC_CACHE = 'staticv3';
+const DYNAMIC_CACHE = 'dynamicv2';
 const INMUTABLE_CACHE = 'inmutablev1';
 
 const APP_SHELL = [//lo que se mete en el appshell es el corazón de la aplicación, lo que se debe cargar instantaneamente.
@@ -46,6 +46,9 @@ self.addEventListener('activate', event => {
         keys.forEach( key => {
 
             if (  key !== STATIC_CACHE && key.includes('static') ) {
+                return caches.delete(key);
+            }
+            if (  key !== DYNAMIC_CACHE && key.includes('dynamic') ) {
                 return caches.delete(key);
             }
 
